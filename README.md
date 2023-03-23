@@ -15,4 +15,4 @@ method of visualizing spending within a time range. Used personal downloaded csv
 
 ![image](https://user-images.githubusercontent.com/70596906/227347373-e2c715e3-7ebd-4021-a5a0-65b1b1efe4f3.png)
 
-as you can see, ~~i~~this particular user needs to improve on their food situation 💀
+as you can see, ~~i~~ this particular user needs to improve on their food situation 💀
