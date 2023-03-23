@@ -1,0 +1,4 @@
+*.csv
+*.json
+transaction_types
+venv/
