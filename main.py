@@ -25,7 +25,6 @@ def parse_amount(amount):
 def render_pie_chart():
     with open(f"{MONTH_YR}.json", "r") as f:
         group_by_transaction = json.loads(f.read())
-        # print(group_by_transaction)
         # create a pie chart based on groups
         labels = []
         sizes = []
@@ -50,7 +49,7 @@ def render_pie_chart():
         if "unknown" in income_labels:
             income_labels.remove("unknown")
 
-        # add on hover show the amount
+        # TODO: add on hover show the amount
         fig, (ax1, ax2) = plt.subplots(1, 2)
         fig.suptitle(f"Transactions for {MONTH_YR}")
         # show size of each slice instead of percentage
@@ -63,6 +62,7 @@ def render_pie_chart():
         )
         ax1.axis("equal")
         ax1.set_title("Expenses")
+        ax1.text(-1, -1, f"Total: ${sum(sizes)}", ha="center", va="center", size=20)
         ax2.pie(
             income_sizes,
             labels=income_labels,
@@ -72,6 +72,17 @@ def render_pie_chart():
         )
         ax2.axis("equal")
         ax2.set_title("Income")
+        ax2.text(
+            1, -1, f"Total: ${sum(income_sizes)}", ha="center", va="center", size=20
+        )
+        fig.text(
+            0.5,
+            0.04,
+            f"Net: ${round(sum(income_sizes) - sum(sizes),2)}",
+            ha="center",
+            va="center",
+            size=20,
+        )
         plt.show()
 
 
@@ -119,7 +130,7 @@ def main():
     group_by_transaction = {}
     exit = False
     for date, transactions in date_dict.items().__reversed__():
-        if exit:
+        if exit:  # premature exit
             break
         for i, transaction in enumerate(transactions):
             os.system("clear")
@@ -166,7 +177,9 @@ def main():
 if __name__ == "__main__":
     fix_transaction_types_file()
     if len(sys.argv) < 2:
-        print("Please provide the monthyr as an argument. e.g. mar23 (same as your source filename without the extension)")
+        print(
+            "Please provide the monthyr as an argument. e.g. mar23 (same as your source filename without the extension)"
+        )
         sys.exit(1)
     else:
         MONTH_YR = sys.argv[1]
